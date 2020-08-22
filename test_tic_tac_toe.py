@@ -2,34 +2,38 @@ import unittest
 from parameterized import parameterized
 from tic_tac_toe import TicTacToe
 from board import Board
-from typing import List
+from players.player import Player
+from typing import List, Tuple
 
 
 class TestTicTacToe(unittest.TestCase):
 
     def setUp(self):
-        self.tic_tac_toe = TicTacToe()
+        players = [Player("X"), Player("Y")]
+        self.tic_tac_toe = TicTacToe(players)
 
     #############################
     #   Tic Tac Toe Unit Test   #
     #############################
-    def test_player_x_starts(self):
-        self.assertTrue(self.tic_tac_toe.player_start == "X")
-
-    @parameterized.expand([["Invalid input strings", "not correct input", None],
-                           ["Invalid input strings with ,", "not,input", None],
-                           ["Invalid input strings with digits ,", "0.0,1.1", None],
-                           ["Invalid input strings with digits , A", "A,1.1", None],
-                           ["Invalid input strings with digits , and as", "AS 0,1", None],
-                           ["Invalid input strings with digits multiple ,", "0,1,", None],
-                           ["Invalid input strings with digits multiple ,", "0,1,3,4", None],
-                           ["Invalid input with negatives", "0,-1", None],
-                           ["Invalid input without comma,", "0 1", None],
-                           ["valid", "0,1", "0,1"],
-                           ["valid whitespace test", "    0,1    ", "0,1"],
-                           ["valid whitespace test 2 ", "    0 ,   1    ", "0,1"]])
+    @parameterized.expand([["Invalid user_input strings", "not correct user_input", None],
+                           ["Invalid user_input strings with ,", "not,user_input", None],
+                           ["Invalid user_input strings with digits ,", "0.0,1.1", None],
+                           ["Invalid user_input strings with digits , A", "A,1.1", None],
+                           ["Invalid user_input strings with digits , and as", "AS 0,1", None],
+                           ["Invalid user_input strings with digits multiple ,", "0,1,", None],
+                           ["Invalid user_input strings with digits multiple ,", "0,1,3,4", None],
+                           ["Invalid user_input with negatives", "0,-1", None],
+                           ["Invalid user_input without comma,", "0 1", None],
+                           ["Invalid user_input large numbers", "55555555,44444444", None],
+                           ["valid", "0,1", (0, 1)],
+                           ["valid", "40,100", (40, 100)],
+                           ["valid whitespace test", "    0,1    ",  (0, 1)],
+                           ["valid whitespace test 2 ", "    0 ,   1    ", (0, 1)]])
     def test_gen_board_output_and_updates(self, name: str, input: str, result: bool):
         self.assertEqual(self.tic_tac_toe.process_input(input), result)
+
+
+
 
     #############################
     #      Unit Board Test      #
@@ -44,16 +48,16 @@ class TestTicTacToe(unittest.TestCase):
         board.update(x, y, marker)
         self.assertEqual(board.gen_board_output(), result)
 
-    @parameterized.expand([["valid_move 0 0", 3, 0, 0, True],
-                           ["valid_move 1 1", 3, 1, 1, True],
-                           ["invalid_move -1 0", 3, -1, 0, False],
-                           ["invalid_move 0 -1", 3, 0, -1, False],
-                           ["invalid_move 0 3", 3, 0, 3, False],
-                           ["invalid_move", 3, 3, 0, False],
-                           ["invalid_move", 4, 4, 3, False],
-                           ["invalid_move", 4, 3, 4, False],
-                           ["valid_move", 4, 3, 3, True]])
-    def test_board_is_valid_move(self, name: str, s: int, x: int, y: int,  result: str):
+    @parameterized.expand([["valid_move 0 0", 3, 0, 0, (True, 'good')],
+                           ["valid_move 1 1", 3, 1, 1, (True, 'good')],
+                           ["invalid_move -1 0", 3, -1, 0, (False, "x value '-1' is less then zero ")],
+                           ["invalid_move 0 -1", 3, 0, -1, (False, "y value '0' is less then zero ")],
+                           ["invalid_move 0 3", 3, 0, 3, (False, "y value '3' is greater then board size 2")],
+                           ["invalid_move", 3, 3, 0, (False, "x value '3' is greater then board size 2")],
+                           ["invalid_move", 4, 4, 3, (False, "x value '4' is greater then board size 3")],
+                           ["invalid_move", 4, 3, 4, (False, "y value '4' is greater then board size 3")],
+                           ["valid_move", 4, 3, 3, (True, 'good')]])
+    def test_board_is_valid_move(self, name: str, s: int, x: int, y: int,  result: Tuple[bool, str]):
         board = Board(size=s)
         self.assertEqual(board.is_valid_location(x, y), result)
 

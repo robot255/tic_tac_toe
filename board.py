@@ -1,3 +1,5 @@
+from typing import Tuple
+
 class Board():
 
     def __init__(self, size=3, win_count=3):
@@ -5,20 +7,26 @@ class Board():
         self._win_count = win_count
         self._board = [[None for _ in range(self._size)] for _ in range(self._size)]
 
-    def is_valid_location(self, x, y):
+    def get_size(self) -> int:
+        return self._size
+
+    def get_board_marker(self, x, y) -> str:
+        return self._board[x][y]
+
+    def is_valid_location(self, x, y) -> Tuple[bool, str]:
         # Since python lazy evaluates boolean expressions have to check things separately
         # https://docs.python.org/2/reference/expressions.html#boolean-operations
         if 0 > x:
-            return False
+            return False, f"x value '{x}' is less then zero "
         if x > (self._size - 1):
-            return False
+            return False, f"x value '{x}' is greater then board size {self._size - 1}"
         if 0 > y:
-            return False
+            return False, f"y value '{x}' is less then zero "
         if y > (self._size - 1):
-            return False
+            return False, f"y value '{y}' is greater then board size {self._size - 1}"
         if self._board[x][y] is not None:
-            return False
-        return True
+            return False, f"location {x},{y} is already filled with {self._board[x][y]}"
+        return True, "good"
 
     # Need to test method
     def is_board_full(self):
