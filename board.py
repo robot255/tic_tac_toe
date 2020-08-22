@@ -25,8 +25,8 @@ class Board():
         for x in range(self._size):
             for y in range(self._size):
                 if self._board[x][y] is None:
-                    return True
-        return False
+                    return False
+        return True
 
     # where should the error checking exist in the update method or the tic tac toe
     def update(self, x: int, y: int, marker: str) -> None:
