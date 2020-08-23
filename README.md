@@ -1,4 +1,4 @@
-#Tic Tac Toe 
+# Tic Tac Toe 
 This is a fun coding project to make the game tic tac toe (https://en.wikipedia.org/wiki/Tic-tac-toe). This english game 
 also know as noughts and crosses. The goal of the game is for the play to place three of their marks horizontal, vertical
 or diagonal. If the board is full and no player has 3 marks in a row the game is tie also known as a cat's game. 
