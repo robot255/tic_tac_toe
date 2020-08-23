@@ -10,10 +10,9 @@ class MinMaxComputerPlayer(Player):
     def __init__(self, marker: str, board: Board):
         super(MinMaxComputerPlayer, self).__init__(marker)
         self._board = board
-        self.player_markers = ["X", "O"]
 
     def make_move(self) -> None:
-        bestScore = -math.inf
+        best_score = -math.inf
         best_x = None
         best_y = None
 
@@ -21,14 +20,14 @@ class MinMaxComputerPlayer(Player):
             self._board.update(x, y)
             score = self.minimax(False, self._marker, self._board)
             self._board.undo()
-            if score > bestScore:
-                bestScore = score
+            if score > best_score:
+                best_score = score
                 best_x = x
                 best_y = y
         print(f"Minmax algorithms select {best_x},{best_y}")
         self._board.update(best_x, best_y)
 
-    def minimax(self, is_max, maximizer_marker, curr_board) -> int:
+    def minimax(self, is_max_turn, maximizer_marker, curr_board) -> int:
         state = curr_board.get_state
         if state is State.DRAW:
             return 0
@@ -38,9 +37,9 @@ class MinMaxComputerPlayer(Player):
         scores = []
         for x, y in curr_board.get_possible_moves():
             curr_board.update(x, y)
-            scores.append(self.minimax(not is_max, maximizer_marker, curr_board))
+            scores.append(self.minimax(not is_max_turn, maximizer_marker, curr_board))
             curr_board.undo()
-            if (is_max and max(scores) == 1) or (not is_max and min(scores) == -1):
+            if (is_max_turn and max(scores) == 1) or (not is_max_turn and min(scores) == -1):
                 break
 
-        return max(scores) if is_max else min(scores)
+        return max(scores) if is_max_turn else min(scores)

@@ -14,23 +14,27 @@ class HumanPlayer(Player):
         valid_move = False
 
         while not valid_move:
-            move = input(f"Player {self._marker}, please enter your move: \n")
+            move = self.get_input(f"Player {self._marker}, please enter your move vertical,horizontal: \n")
             processed_move = self.process_input(move)
             if processed_move:
-                valid_move, msg = self._board.is_valid_location(processed_move[1], processed_move[0])
+                valid_move, msg = self._board.is_valid_location(processed_move[0], processed_move[1])
 
                 if valid_move:
                     continue
             else:
                 print(f"""Unable to process your move '{move}'.
-                          Valid moves must be entered in the format x,y 
+                          Valid moves must be entered in the format vertical,horizontal 
                           Valid moves are between 0 and 999""")
                 continue
             if not valid_move:
                 print(f"Move {move} is invalid because {msg}")
 
-        y, x = processed_move
-        self._board.update(x, y)
+        x, y = processed_move
+        self._board.update(x,y)
+
+    @staticmethod
+    def get_input(text):
+        return input(text)
 
     @staticmethod
     def process_input(user_input: str) -> Tuple[int, int]:

@@ -10,7 +10,7 @@ class RandomComputerPlayer(Player):
         self._board = board
 
     def make_move(self) -> None:
-        size = self._board.get_size()
+        size = self._board.get_size
         valid_spot = False
         while not valid_spot:
             x = random.randint(0, size)
@@ -19,5 +19,5 @@ class RandomComputerPlayer(Player):
 
         print(f"AI has selected {x},{y}")
 
-        self._board.update(x, y, self._marker)
+        self._board.update(x, y)
 

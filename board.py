@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, List
 from enum import Enum
 
 
@@ -8,7 +8,7 @@ class State(Enum):
     WINNER = 1
 
 
-class Board():
+class Board:
     # To Do provide the play order in
     def __init__(self, size=3, win_count=3, play_order=["X", "O"]):
         self._size = size
@@ -24,15 +24,16 @@ class Board():
         return self._size
 
     @property
-    def get_state(self) ->State:
+    def get_state(self) -> State:
         return self._state
+
+    @property
+    def get_moves(self) -> List[Tuple[int, int, str]]:
+        return self._moves
 
     @property
     def get_winner(self) -> str:
         return self._winner
-
-    def get_board_marker(self, x, y) -> str:
-        return self._board[x][y]
 
     def is_valid_location(self, x, y) -> Tuple[bool, str]:
         # Since python lazy evaluates boolean expressions have to check things separately
@@ -71,14 +72,15 @@ class Board():
 
     def update_board_state(self):
         winner = self.winner()
-        # print("Winner: {0} {1}".format(winner, self.is_board_full()))
         if winner:
             self._state = State.WINNER
             self._winner = winner
         elif winner is None and self.is_board_full():
             self._state = State.DRAW
+            self._winner = None
         else:
             self._state = State.INPLAY
+            self._winner = None
 
     def update(self, x: int, y: int) -> None:
         marker = self._play_order[len(self._moves) % len(self._play_order)]
@@ -92,13 +94,13 @@ class Board():
             for y in range(self._size):  # columns
                 marker = self._board[x][y]
                 if marker is None:
-                    continue #No marker skip checks
+                    continue  # No marker skip checks
 
-                # Horizonital
+                # Horizontal
                 if x + self._win_count <= self._size:
                     horizontal_win: bool = True
                     for i in range(1, self._win_count):
-                        if self._board[x+i][y] is None or self._board[x+i][y] != marker:
+                        if self._board[x + i][y] is None or self._board[x + i][y] != marker:
                             horizontal_win = False
                             break
                     if horizontal_win:
@@ -108,7 +110,7 @@ class Board():
                 if y + self._win_count <= self._size:
                     vertical_win: bool = True
                     for i in range(1, self._win_count):
-                        if self._board[x][y+i] is None or self._board[x][y+i] != marker:
+                        if self._board[x][y + i] is None or self._board[x][y + i] != marker:
                             vertical_win = False
                             break
                     if vertical_win:
@@ -118,7 +120,7 @@ class Board():
                     if x + self._win_count <= self._size:
                         vertical_right_win: bool = True
                         for i in range(1, self._win_count):
-                            if self._board[x+i][y+i] is None or self._board[x+i][y+i] != marker:
+                            if self._board[x + i][y + i] is None or self._board[x + i][y + i] != marker:
                                 vertical_right_win = False
                                 break
                         if vertical_right_win:
@@ -127,7 +129,7 @@ class Board():
                     if x - (self._win_count - 1) >= 0:
                         vertical_left_win: bool = True
                         for i in range(1, self._win_count):
-                            if self._board[x-i][y+i] is None or self._board[x-i][y+i] != marker:
+                            if self._board[x - i][y + i] is None or self._board[x - i][y + i] != marker:
                                 vertical_left_win = False
                                 break
                         if vertical_left_win:

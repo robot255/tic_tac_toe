@@ -26,10 +26,10 @@ class TicTacToe:
             turn += 1
             print(self._board.gen_board_output())
 
-        if State.WINNER:
-            print(f"Winner is {self._board.get_winner}")
-        else:
+        if self._board.get_state == State.DRAW:
             print("Tie Game")
+        else:
+            print(f"Winner is {self._board.get_winner}")
 
 
 
