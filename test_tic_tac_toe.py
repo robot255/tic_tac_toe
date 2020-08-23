@@ -1,13 +1,14 @@
 import unittest
-
+from typing import List, Tuple
 from unittest.mock import MagicMock, Mock
+
 from parameterized import parameterized
-from tic_tac_toe import TicTacToe
+
 from board import Board, State
 from players.human_player import HumanPlayer
-from players.random_computer import RandomComputerPlayer
 from players.minimax_computer import MinMaxComputerPlayer
-from typing import List, Tuple
+from players.random_computer import RandomComputerPlayer
+from tic_tac_toe import TicTacToe
 
 
 class TestTicTacToe(unittest.TestCase):

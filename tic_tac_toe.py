@@ -2,8 +2,8 @@ from typing import List
 
 from board import Board, State
 from players.human_player import HumanPlayer
-from players.random_computer import RandomComputerPlayer
 from players.minimax_computer import MinMaxComputerPlayer
+from players.random_computer import RandomComputerPlayer
 
 
 class TicTacToe:

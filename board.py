@@ -1,5 +1,5 @@
-from typing import Tuple, List, Optional
 from enum import Enum
+from typing import Tuple, List, Optional
 
 
 class State(Enum):

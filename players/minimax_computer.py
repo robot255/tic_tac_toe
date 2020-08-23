@@ -1,7 +1,7 @@
 import math
 
-from players.player import Player
 from board import Board, State
+from players.player import Player
 
 
 class MinMaxComputerPlayer(Player):

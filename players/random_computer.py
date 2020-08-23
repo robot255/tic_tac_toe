@@ -1,7 +1,7 @@
 import random
 
-from players.player import Player
 from board import Board
+from players.player import Player
 
 
 class RandomComputerPlayer(Player):

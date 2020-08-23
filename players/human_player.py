@@ -1,8 +1,8 @@
 import re
-
-from players.player import Player
-from board import Board
 from typing import Tuple
+
+from board import Board
+from players.player import Player
 
 
 class HumanPlayer(Player):
