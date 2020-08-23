@@ -29,7 +29,7 @@ class HumanPlayer(Player):
                 print(f"Move {move} is invalid because {msg}")
 
         x, y = processed_move
-        self._board.update(x, y, self._marker)
+        self._board.update(x, y)
 
     @staticmethod
     def process_input(user_input: str) -> Tuple[int, int]:

@@ -1,14 +1,35 @@
 from typing import Tuple
+from enum import Enum
+
+
+class State(Enum):
+    DRAW = 0
+    INPLAY = 2
+    WINNER = 1
+
 
 class Board():
-
-    def __init__(self, size=3, win_count=3):
+    # To Do provide the play order in
+    def __init__(self, size=3, win_count=3, play_order=["X", "O"]):
         self._size = size
         self._win_count = win_count
         self._board = [[None for _ in range(self._size)] for _ in range(self._size)]
+        self._state = State.INPLAY
+        self._winner = None
+        self._moves = []
+        self._play_order = play_order
 
+    @property
     def get_size(self) -> int:
         return self._size
+
+    @property
+    def get_state(self) ->State:
+        return self._state
+
+    @property
+    def get_winner(self) -> str:
+        return self._winner
 
     def get_board_marker(self, x, y) -> str:
         return self._board[x][y]
@@ -30,17 +51,43 @@ class Board():
 
     # Need to test method
     def is_board_full(self):
+        return len(self.get_possible_moves()) == 0
+
+    def undo(self):
+        if len(self._moves) == 0:
+            return
+
+        x, y, _ = self._moves.pop()
+        self._board[x][y] = None
+        self.update_board_state()
+
+    def get_possible_moves(self):
+        p_moves = []
         for x in range(self._size):
             for y in range(self._size):
                 if self._board[x][y] is None:
-                    return False
-        return True
+                    p_moves.append((x, y))
+        return p_moves
 
-    # where should the error checking exist in the update method or the tic tac toe
-    def update(self, x: int, y: int, marker: str) -> None:
+    def update_board_state(self):
+        winner = self.winner()
+        # print("Winner: {0} {1}".format(winner, self.is_board_full()))
+        if winner:
+            self._state = State.WINNER
+            self._winner = winner
+        elif winner is None and self.is_board_full():
+            self._state = State.DRAW
+        else:
+            self._state = State.INPLAY
+
+    def update(self, x: int, y: int) -> None:
+        marker = self._play_order[len(self._moves) % len(self._play_order)]
         self._board[x][y] = marker
+        self._moves.append((x, y, marker))
+        winner = self.winner()
+        self.update_board_state()
 
-    def winner(self, ) -> str:
+    def winner(self) -> str:
         for x in range(self._size):  # rows
             for y in range(self._size):  # columns
                 marker = self._board[x][y]
