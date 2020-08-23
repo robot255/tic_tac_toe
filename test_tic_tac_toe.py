@@ -14,6 +14,7 @@ class TestTicTacToe(unittest.TestCase):
 
     # Basic Integration tests to test that everything is working as expected run throw a full game
     @parameterized.expand([["Draw 1", ["0,1", "1,1", "2,0", "1,2", "2,2"], State.DRAW, None],
+                           ["Draw 2", ["0,0", "2,2", "1,2", "2,0", "0,1"], State.DRAW, None],
                            ["Computer Wins 1", ["1,1", "1,0", "2,0", "2,2"], State.WINNER, "O"]])
     def test_integrations(self, name: str, moves: List[Tuple[int, int]], state: State, winner: str):
         tic_tac_toe = TicTacToe()

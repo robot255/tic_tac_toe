@@ -1,6 +1,4 @@
-import random
 import math
-import copy
 
 from players.player import Player
 from board import Board, State

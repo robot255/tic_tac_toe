@@ -4,8 +4,7 @@ also know as noughts and crosses. The goal of the game is for the play to place 
 or diagonal. If the board is full and no player has 3 marks in a row the game is tie also known as a cat's game. 
  
 # Installation
-The testing class requires the installation of parameterized to run the test cases. Also numpy is required for the minmax computer algorithm
-
+The testing class requires the installation of parameterized to run the test cases.
  ```bash
 sudo apt-get install python3-pip
 pip3 install -r requirements.txt
@@ -19,7 +18,7 @@ This is a very native implementation of a computer where random spaces are selec
 The source code for the https://github.com/robot255/tic_tac_toe/blob/master/players/random_computer.py
   
 ## MinMax Computer Player
-
+Currently the 
   
  
  # Testing 

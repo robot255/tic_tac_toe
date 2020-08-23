@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import Tuple, List, Optional
 from enum import Enum
 
 
@@ -10,7 +10,9 @@ class State(Enum):
 
 class Board:
     # To Do provide the play order in
-    def __init__(self, size=3, win_count=3, play_order=["X", "O"]):
+    def __init__(self, size=3, win_count=3, play_order=None):
+        if play_order is None:
+            play_order = ["X", "O"]
         self._size = size
         self._win_count = win_count
         self._board = [[None for _ in range(self._size)] for _ in range(self._size)]
@@ -86,10 +88,10 @@ class Board:
         marker = self._play_order[len(self._moves) % len(self._play_order)]
         self._board[x][y] = marker
         self._moves.append((x, y, marker))
-        winner = self.winner()
+        self._winner = self.winner()
         self.update_board_state()
 
-    def winner(self) -> str:
+    def winner(self) -> Optional[str]:
         for x in range(self._size):  # rows
             for y in range(self._size):  # columns
                 marker = self._board[x][y]

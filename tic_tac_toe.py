@@ -9,11 +9,9 @@ from players.minimax_computer import MinMaxComputerPlayer
 class TicTacToe:
 
     def __init__(self):
-        self._board = Board()
+        self._board = Board(size=4)
 
         p1 = HumanPlayer("X", self._board)
-        # p2 = HumanPlayer("O", self._board)
-        # p2 = RandomComputerPlayer("0", self._board)
         p2 = MinMaxComputerPlayer("O", self._board)
 
         self._players = [p1, p2]
