@@ -1,7 +1,17 @@
-This is a fun coding assignment to make the game tic tac toe (https://en.wikipedia.org/wiki/Tic-tac-toe). 
+#Tic Tac Toe 
+This is a fun coding project to make the game tic tac toe (https://en.wikipedia.org/wiki/Tic-tac-toe). 
+
+# About Tic Tac Toe
  
  
- 
+
+# Installation
+The testing class requires the installation of parameterized to run the test cases. Also numpy is required for the minmax computer algorithm
+
+ ```bash
+sudo apt-get install python3-pip
+pip3 install -r requirements.txt
+```
  
  # Computer Players 
  --
