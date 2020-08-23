@@ -27,18 +27,25 @@ class TicTacToe:
 
     def start_game(self) -> None:
         turn = 0
-        while self._board.get_state == State.INPLAY:
-            player = turn % len(self._players)
-            self._players[player].make_move()
-            turn += 1
-            print(self._board.gen_board_output())
+        print(self._board.gen_board_output())
 
-        if self._board.get_state == State.DRAW:
-            print("Tie Game")
-        else:
-            print(f"Winner is {self._board.get_winner}")
+        while True:
+            while self._board.get_state == State.INPLAY:
+                player = turn % len(self._players)
+                self._players[player].make_move()
+                turn += 1
+                print(self._board.gen_board_output())
 
+            if self._board.get_state == State.DRAW:
+                print("Tie Game")
+            else:
+                print(f"Winner is {self._board.get_winner}")
+            if self.get_input() != "yes":
+                break
+            else:
+                self._board.reset_board()
 
-
+    def get_input(self):
+        return input("Would you like to play again type yes")
 
 

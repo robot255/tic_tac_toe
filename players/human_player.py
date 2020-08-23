@@ -6,7 +6,7 @@ from typing import Tuple
 
 
 class HumanPlayer(Player):
-    def __init__(self, marker: str, board: Board):
+    def __init__(self, marker: str, board: Board = None):
         super(HumanPlayer, self).__init__(marker)
         self._board = board
 
@@ -23,7 +23,7 @@ class HumanPlayer(Player):
                     continue
             else:
                 print(f"""Unable to process your move '{move}'.
-                          Valid moves must be entered in the format vertical,horizontal 
+                          Valid moves must be entered in the format x,y 
                           Valid moves are between 0 and 999""")
                 continue
             if not valid_move:

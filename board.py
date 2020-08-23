@@ -51,6 +51,14 @@ class Board:
             return False, f"it is already filled with {self._board[x][y]}"
         return True, "good"
 
+    def reset_board(self):
+        self._state = State.INPLAY
+        self._winner = None
+        self._moves = []
+        for x in range(self._size):
+            for y in range(self._size):
+                self._board[x][y] = None
+
     # Need to test method
     def is_board_full(self):
         return len(self.get_possible_moves()) == 0

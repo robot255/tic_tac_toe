@@ -18,6 +18,7 @@ class TestTicTacToe(unittest.TestCase):
                            ["Computer Wins 1", ["1,1", "1,0", "2,0", "2,2"], State.WINNER, "O"]])
     def test_integrations(self, name: str, moves: List[Tuple[int, int]], state: State, winner: str):
         tic_tac_toe = TicTacToe()
+        tic_tac_toe.get_input = MagicMock(return_value="Not Today")
 
         mock_player = HumanPlayer("X", tic_tac_toe._board)
         mock_player.get_input = Mock()
@@ -88,7 +89,7 @@ class TestTicTacToe(unittest.TestCase):
         self.assertEquals(computer_move, (1, 1, "O"))
 
     #############################
-    #      Unit Board Test      #
+    #      Board Unit Test      #
     #############################
     @parameterized.expand([["0,0 X", 3, 0, 0, "X", '  0 1 2\n0 X| | \n  -----\n1  | | \n  -----\n2  | | \n'],
                            ["1,1 O", 3, 1, 1, "O", '  0 1 2\n0  | | \n  -----\n1  |O| \n  -----\n2  | | \n'],
