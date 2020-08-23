@@ -11,7 +11,6 @@ class TicTacToe:
     def __init__(self, board_size: int = 3, win_count: int = 3, players: List[str] = ['human', 'minimax']):
         if len(players) != 2:
             raise Exception("Currently unable to handle more then 2 players")
-
         player_markers = ["X", "O"]
 
         self._board = Board(size=board_size, win_count=win_count, play_order=player_markers)
