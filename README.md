@@ -29,4 +29,7 @@ were created. Below command will run the tests.
 python test_tic_tac_toe.py
 ```
 
-
+ # Testing 
+ - Allow for Multiple players in boards that are larger then 3 
+ - Verify that the minmax algorithm works in larger boards 
+ - 

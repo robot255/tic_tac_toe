@@ -46,7 +46,7 @@ class TestTicTacToe(unittest.TestCase):
                            ["valid whitespace test", "    0,1    ",  (0, 1)],
                            ["valid whitespace test 2 ", "    0 ,   1    ", (0, 1)]])
     def test_gen_board_output_and_updates(self, name: str, user_input: str, result: bool):
-        player = HumanPlayer("X", None)
+        player = HumanPlayer("X")
         self.assertEqual(player.process_input(user_input), result)
 
     def test_user_input_valid_input(self):
@@ -87,8 +87,6 @@ class TestTicTacToe(unittest.TestCase):
         computer_move = board.get_moves[1]
         self.assertEquals(computer_move, (1, 1, "O"))
 
-
-
     #############################
     #      Unit Board Test      #
     #############################
@@ -126,10 +124,10 @@ class TestTicTacToe(unittest.TestCase):
                                                          [None, None, None]], None],
                            ["X wins horizontal first row", 3, 3, [["X", "X", "X"],
                                                                   ["O", "O", None],
-                                                                 [None, None, None]], "X"],
+                                                                  [None, None, None]], "X"],
                            ["O wins horizontal second row", 3, 3, [["X", "O", "O"],
-                                                                  ["O", "O", "O"],
-                                                                  ["X", None, "X"]], "O"],
+                                                                   ["O", "O", "O"],
+                                                                   ["X", None, "X"]], "O"],
                            ["X wins horizontal third row", 3, 3, [["X", "O", "O"],
                                                                   ["O", "O", "X"],
                                                                   ["X", "X", "X"]], "X"],
@@ -236,6 +234,7 @@ class TestTicTacToe(unittest.TestCase):
         self.assertEquals(board.get_size, 4)
         self.assertEquals(board.gen_board_output(),
                           '  0 1 2 3\n0  | | | \n  ------\n1  | | | \n  ------\n2  | | | \n  ------\n3  | | | \n')
+
 
 if __name__ == '__main__':
     unittest.main()

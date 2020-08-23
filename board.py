@@ -9,8 +9,7 @@ class State(Enum):
 
 
 class Board:
-    # To Do provide the play order in
-    def __init__(self, size=3, win_count=3, play_order=None):
+    def __init__(self, size: int = 3, win_count: int = 3, play_order: List[str] = None):
         if play_order is None:
             play_order = ["X", "O"]
         self._size = size
