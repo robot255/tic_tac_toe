@@ -2,15 +2,14 @@ import unittest
 from parameterized import parameterized
 from tic_tac_toe import TicTacToe
 from board import Board
-from players.player import Player
+from players.human_player import HumanPlayer
 from typing import List, Tuple
 
 
 class TestTicTacToe(unittest.TestCase):
 
     def setUp(self):
-        players = [Player("X"), Player("Y")]
-        self.tic_tac_toe = TicTacToe(players)
+        self.tic_tac_toe = TicTacToe()
 
     #############################
     #   Tic Tac Toe Unit Test   #
@@ -30,9 +29,8 @@ class TestTicTacToe(unittest.TestCase):
                            ["valid whitespace test", "    0,1    ",  (0, 1)],
                            ["valid whitespace test 2 ", "    0 ,   1    ", (0, 1)]])
     def test_gen_board_output_and_updates(self, name: str, input: str, result: bool):
-        self.assertEqual(self.tic_tac_toe.process_input(input), result)
-
-
+        player = HumanPlayer("X", None)
+        self.assertEqual(player.process_input(input), result)
 
 
     #############################
@@ -44,8 +42,8 @@ class TestTicTacToe(unittest.TestCase):
                            ["3,3 W", 4, 3, 3, "W",
                             '  0 1 2 3\n0  | | | \n  ------\n1  | | | \n  ------\n2  | | | \n  ------\n3  | | |W\n']])
     def test_gen_board_output_and_updates(self, name: str, s: int, x: int, y: int, marker: str, result: str):
-        board = Board(size=s)
-        board.update(x, y, marker)
+        board = Board(size=s, play_order=[marker, "O"])
+        board.update(x, y)
         self.assertEqual(board.gen_board_output(), result)
 
     @parameterized.expand([["valid_move 0 0", 3, 0, 0, (True, 'good')],

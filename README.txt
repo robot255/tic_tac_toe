@@ -30,3 +30,11 @@ If you have any questions, please don't hesitate to reach out.
 
 
 Cheers,
+
+To Do,
+- Create a requirements files
+- Review all of the code in detail
+    - check variable names
+    - properties
+- Try a 4x4 game with minmax and other players
+- Review test coverage for

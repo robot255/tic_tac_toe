@@ -25,7 +25,7 @@ class MinMaxComputerPlayer(Player):
                 bestScore = score
                 best_x = x
                 best_y = y
-        print("Minmax  algorithms select {best_x},{best_y}")
+        print(f"Minmax algorithms select {best_x},{best_y}")
         self._board.update(best_x, best_y)
 
     def minimax(self, is_max, maximizer_marker, curr_board) -> int:

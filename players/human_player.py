@@ -17,7 +17,7 @@ class HumanPlayer(Player):
             move = input(f"Player {self._marker}, please enter your move: \n")
             processed_move = self.process_input(move)
             if processed_move:
-                valid_move, msg = self._board.is_valid_location(processed_move[0], processed_move[1])
+                valid_move, msg = self._board.is_valid_location(processed_move[1], processed_move[0])
 
                 if valid_move:
                     continue
@@ -25,10 +25,11 @@ class HumanPlayer(Player):
                 print(f"""Unable to process your move '{move}'.
                           Valid moves must be entered in the format x,y 
                           Valid moves are between 0 and 999""")
+                continue
             if not valid_move:
                 print(f"Move {move} is invalid because {msg}")
 
-        x, y = processed_move
+        y, x = processed_move
         self._board.update(x, y)
 
     @staticmethod
@@ -36,6 +37,6 @@ class HumanPlayer(Player):
         # Regex expression accepting integers with optional whitespace before and after
         filtered_input = re.findall(r"^\s*\d{1,3}\s*,\s*\d{1,3}\s*$", user_input)
         if len(filtered_input) == 1:
-            y, x = filtered_input[0].replace(" ", "").split(",")
-            return int(x), int(y)   # since the number of digits is limited to 3 no risk of overflow
+            x, y = filtered_input[0].replace(" ", "").split(",")
+            return int(x), int(y)  # since the number of digits is limited to 3 no risk of overflow
         return None
