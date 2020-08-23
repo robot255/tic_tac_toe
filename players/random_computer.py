@@ -18,6 +18,4 @@ class RandomComputerPlayer(Player):
             valid_spot, _ = self._board.is_valid_location(x, y)
 
         print(f"AI has selected {x},{y}")
-
         self._board.update(x, y)
-

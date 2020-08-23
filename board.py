@@ -47,7 +47,7 @@ class Board:
         if y > (self._size - 1):
             return False, f"y value '{y}' is greater then board size {self._size - 1}"
         if self._board[x][y] is not None:
-            return False, f"location {x},{y} is already filled with {self._board[x][y]}"
+            return False, f"it is already filled with {self._board[x][y]}"
         return True, "good"
 
     # Need to test method

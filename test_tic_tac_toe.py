@@ -13,8 +13,9 @@ from typing import List, Tuple
 class TestTicTacToe(unittest.TestCase):
 
     # Basic Integration tests to test that everything is working as expected run throw a full game
-    @parameterized.expand([["Draw", ["0,1", "1,1", "2,0", "1,2", "2,2"], State.DRAW, None]])
-    def test_integration_1(self, name: str, moves: List[Tuple[int, int]], state: State, winner: str):
+    @parameterized.expand([["Draw 1", ["0,1", "1,1", "2,0", "1,2", "2,2"], State.DRAW, None],
+                           ["Computer Wins 1", ["1,1", "1,0", "2,0", "2,2"], State.WINNER, "O"]])
+    def test_integrations(self, name: str, moves: List[Tuple[int, int]], state: State, winner: str):
         tic_tac_toe = TicTacToe()
 
         mock_player = HumanPlayer("X", tic_tac_toe._board)
@@ -52,7 +53,7 @@ class TestTicTacToe(unittest.TestCase):
         player = HumanPlayer("X", board)
         player.get_input = MagicMock(return_value="0,1")
         player.make_move()
-        self.assertEquals(board.get_moves, [(0, 1, "X")])
+        self.assertEquals(board.get_moves, [(1, 0, 'X')])
 
     def test_user_input_invalid_then_valid_input(self):
         board = Board()
@@ -60,7 +61,7 @@ class TestTicTacToe(unittest.TestCase):
         player.get_input = Mock()
         player.get_input.side_effect = ["A,3", "4,4", "0,1"]
         player.make_move()
-        self.assertEquals(board.get_moves, [(0, 1, "X")])
+        self.assertEquals(board.get_moves, [(1, 0, "X")])
 
     #######################################
     #  Random Computer Player Unit Test   #
@@ -116,7 +117,7 @@ class TestTicTacToe(unittest.TestCase):
     def test_board_is_valid_move_existing_marker(self):
         board = Board()
         board.update(1, 1)
-        self.assertEqual(board.is_valid_location(1, 1), (False, "location 1,1 is already filled with X"))
+        self.assertEqual(board.is_valid_location(1, 1), (False, "it is already filled with X"))
 
     # In a 3x3 tic tac toe board there is 8 possible way of winning 3 horizontal, 3 vertical and 2 diagonal
     @parameterized.expand([["no win blank board", 3, 3, [[None, None, None],

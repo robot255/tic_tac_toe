@@ -14,10 +14,10 @@ class HumanPlayer(Player):
         valid_move = False
 
         while not valid_move:
-            move = self.get_input(f"Player {self._marker}, please enter your move vertical,horizontal: \n")
+            move = self.get_input(f"Player {self._marker}, please enter your move x,y: \n")
             processed_move = self.process_input(move)
             if processed_move:
-                valid_move, msg = self._board.is_valid_location(processed_move[0], processed_move[1])
+                valid_move, msg = self._board.is_valid_location(processed_move[1], processed_move[0])
 
                 if valid_move:
                     continue
@@ -30,7 +30,8 @@ class HumanPlayer(Player):
                 print(f"Move {move} is invalid because {msg}")
 
         x, y = processed_move
-        self._board.update(x,y)
+        print(f'Human Player move is {x},{y}')
+        self._board.update(y, x)
 
     @staticmethod
     def get_input(text):
