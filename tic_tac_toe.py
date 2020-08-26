@@ -26,6 +26,7 @@ class TicTacToe:
 
     def start_game(self) -> None:
         turn = 0
+        # turn = 1
         print(self._board.gen_board_output())
 
         while True:
@@ -43,6 +44,13 @@ class TicTacToe:
                 break
             else:
                 self._board.reset_board()
+                # Need to change the order of the players
+                player1 = self._players[turn % len(self._players)].get_marker()
+                player2 = self._players[(turn + 1) % len(self._players)].get_marker()
+                self._board.set_player_order([player1, player2])
+
+
+
 
     def get_input(self):
         return input("Would you like to play again type yes")

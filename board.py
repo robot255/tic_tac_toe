@@ -36,6 +36,9 @@ class Board:
     def get_winner(self) -> str:
         return self._winner
 
+    def set_player_order(self, player_order) -> None:
+        self._play_order = player_order
+
     def is_valid_location(self, x, y) -> Tuple[bool, str]:
         # Since python lazy evaluates boolean expressions have to check things separately
         # https://docs.python.org/2/reference/expressions.html#boolean-operations

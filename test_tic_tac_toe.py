@@ -30,6 +30,20 @@ class TestTicTacToe(unittest.TestCase):
         self.assertEquals(tic_tac_toe._board.get_state, state)
         self.assertEquals(tic_tac_toe._board.get_winner, winner)
 
+    def test_multiple_games(self):
+        tic_tac_toe = TicTacToe()
+        tic_tac_toe.get_input = Mock()
+        tic_tac_toe.get_input.side_effect = ["yes", "Not Today"]
+
+        mock_player = HumanPlayer("X", tic_tac_toe._board)
+        mock_player.get_input = Mock()
+        mock_player.get_input.side_effect = ["0,1", "1,1", "2,0", "1,2", "2,2", "1,1", "2,0", "0,1", "1,2"]
+        tic_tac_toe._players[0] = mock_player
+        tic_tac_toe.start_game()
+
+        self.assertEquals(tic_tac_toe._board.get_state, State.DRAW)
+        self.assertEquals(tic_tac_toe._board.get_winner, None)
+
     #############################
     #  Human Player Unit Test   #
     #############################
